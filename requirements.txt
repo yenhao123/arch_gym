@@ -1,0 +1,27 @@
+dm-acme[jax,tf]
+dm-acme[envs]
+tensorboard >= 2.3
+tensorflow >= 2.3
+qhoptim >= 1.1
+torch >= 1.6
+scikit-learn
+xgboost
+atoma
+scikit-optimize
+envlogger>=1.0.8
+absl-py
+sympy
+plotly
+scons
+portpicker
+dill
+jupyter
+appdirs
+wandb
+matplotlib
+ninja
+packaging
+scipy
+gpustat
+watch
+lit

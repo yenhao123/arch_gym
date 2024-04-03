@@ -1,0 +1,1 @@
+{"mcconfig": {"PagePolicy": "Closed", "Scheduler": "FrFcfsGrp", "SchedulerBuffer": "ReadWrite", "RequestBufferSize": 16, "CmdMux": "Oldest", "RespQueue": "Reorder", "RefreshPolicy": "AllBank", "RefreshMaxPostponed": 4, "RefreshMaxPulledin": 4, "PowerDownPolicy": "NoPowerDown", "Arbiter": "Fifo", "MaxActiveTransactions": 16}}

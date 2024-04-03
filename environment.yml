@@ -1,0 +1,24 @@
+name: arch-gym
+channels:
+  - conda-forge
+  - pyviz
+dependencies:
+  - python=3.9
+  - gym >= 0.17.2
+  - numpy=1.22.4
+  - pandas
+  - seaborn
+  - requests
+  - tqdm >= 4.37.0
+  - keras
+  - psutil
+  - beautifulsoup4
+  - lxml
+  - pytz
+  - pygraphviz
+  - nodejs
+  - category_encoders
+  - tensorboardX
+  - pip
+  - pip:
+    - -r requirements.txt

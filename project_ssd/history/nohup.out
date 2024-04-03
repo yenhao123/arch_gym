@@ -1,0 +1,458 @@
+Suggested Parameters
+[1, 1, 0, -1, 0, -1, 1]
+stdout: Start setting Arbitration policy for NVMe device...
+set-feature:01 (Arbitration), value:0x000001
+Start setting power management policy for NVMe device...
+set-feature:02 (Power Management), value:00000000
+Start setting interrupt coalescing policy for NVMe device...
+set-feature:08 (Interrupt Coalescing), value:00000000
+Start setting write atomicity policy for NVMe device...
+set-feature:0a (Write Atomicity Normal), value:0x000001
+Successfully tuning
+Successfully profiling
+Successfully reformating
+Successfully save
+
+return code: 0
+Throughput:  48857.31
+Bandwidth(kb):  195429.38
+Observation:  [195429.38  48857.31]
+Suggested Parameters
+[1, 0, 0, -1, 0, -1, 1]
+stdout: Start setting Arbitration policy for NVMe device...
+set-feature:01 (Arbitration), value:00000000
+Start setting power management policy for NVMe device...
+set-feature:02 (Power Management), value:00000000
+Start setting interrupt coalescing policy for NVMe device...
+set-feature:08 (Interrupt Coalescing), value:00000000
+Start setting write atomicity policy for NVMe device...
+set-feature:0a (Write Atomicity Normal), value:0x000001
+Successfully tuning
+Successfully profiling
+Successfully reformating
+Successfully save
+
+return code: 0
+Throughput:  47640.07
+Bandwidth(kb):  190630.89
+Observation:  [190630.89  47640.07]
+Suggested Parameters
+[1, 1, 0, -1, 0, -1, 0]
+stdout: Start setting Arbitration policy for NVMe device...
+set-feature:01 (Arbitration), value:0x000001
+Start setting power management policy for NVMe device...
+set-feature:02 (Power Management), value:00000000
+Start setting interrupt coalescing policy for NVMe device...
+set-feature:08 (Interrupt Coalescing), value:00000000
+Start setting write atomicity policy for NVMe device...
+set-feature:0a (Write Atomicity Normal), value:00000000
+Successfully tuning
+Successfully profiling
+Successfully reformating
+Successfully save
+
+return code: 0
+Throughput:  47646.93
+Bandwidth(kb):  190658.34
+Observation:  [190658.34  47646.93]
+Suggested Parameters
+[1, 0, 0, -1, 0, -1, 1]
+stdout: Start setting Arbitration policy for NVMe device...
+set-feature:01 (Arbitration), value:00000000
+Start setting power management policy for NVMe device...
+set-feature:02 (Power Management), value:00000000
+Start setting interrupt coalescing policy for NVMe device...
+set-feature:08 (Interrupt Coalescing), value:00000000
+Start setting write atomicity policy for NVMe device...
+set-feature:0a (Write Atomicity Normal), value:0x000001
+Successfully tuning
+Successfully profiling
+Successfully reformating
+Successfully save
+
+return code: 0
+Throughput:  47233.137
+Bandwidth(kb):  189003.03
+Observation:  [189003.03   47233.137]
+Suggested Parameters
+[1, 0, 0, -1, 0, -1, 1]
+stdout: Start setting Arbitration policy for NVMe device...
+set-feature:01 (Arbitration), value:00000000
+Start setting power management policy for NVMe device...
+set-feature:02 (Power Management), value:00000000
+Start setting interrupt coalescing policy for NVMe device...
+set-feature:08 (Interrupt Coalescing), value:00000000
+Start setting write atomicity policy for NVMe device...
+set-feature:0a (Write Atomicity Normal), value:0x000001
+Successfully tuning
+Successfully profiling
+Successfully reformating
+Successfully save
+
+return code: 0
+Throughput:  45824.31
+Bandwidth(kb):  183367.72
+Observation:  [183367.72  45824.31]
+Suggested Parameters
+[1, 1, 0, -1, 0, -1, 0]
+stdout: Start setting Arbitration policy for NVMe device...
+set-feature:01 (Arbitration), value:0x000001
+Start setting power management policy for NVMe device...
+set-feature:02 (Power Management), value:00000000
+Start setting interrupt coalescing policy for NVMe device...
+set-feature:08 (Interrupt Coalescing), value:00000000
+Start setting write atomicity policy for NVMe device...
+set-feature:0a (Write Atomicity Normal), value:00000000
+Successfully tuning
+Successfully profiling
+Successfully reformating
+Successfully save
+
+return code: 0
+Throughput:  46750.69
+Bandwidth(kb):  187002.89
+Observation:  [187002.89  46750.69]
+Suggested Parameters
+[1, 0, 0, -1, 0, -1, 0]
+stdout: Start setting Arbitration policy for NVMe device...
+set-feature:01 (Arbitration), value:00000000
+Start setting power management policy for NVMe device...
+set-feature:02 (Power Management), value:00000000
+Start setting interrupt coalescing policy for NVMe device...
+set-feature:08 (Interrupt Coalescing), value:00000000
+Start setting write atomicity policy for NVMe device...
+set-feature:0a (Write Atomicity Normal), value:00000000
+Successfully tuning
+Successfully profiling
+Successfully reformating
+Successfully save
+
+return code: 0
+Throughput:  45208.69
+Bandwidth(kb):  180905.38
+Observation:  [180905.38  45208.69]
+Suggested Parameters
+[1, 1, 0, -1, 0, -1, 0]
+stdout: Start setting Arbitration policy for NVMe device...
+set-feature:01 (Arbitration), value:0x000001
+Start setting power management policy for NVMe device...
+set-feature:02 (Power Management), value:00000000
+Start setting interrupt coalescing policy for NVMe device...
+set-feature:08 (Interrupt Coalescing), value:00000000
+Start setting write atomicity policy for NVMe device...
+set-feature:0a (Write Atomicity Normal), value:00000000
+Successfully tuning
+Successfully profiling
+Successfully reformating
+Successfully save
+
+return code: 0
+Throughput:  42956.516
+Bandwidth(kb):  171896.55
+Observation:  [171896.55   42956.516]
+Suggested Parameters
+[1, 0, 0, -1, 0, -1, 0]
+stdout: Start setting Arbitration policy for NVMe device...
+set-feature:01 (Arbitration), value:00000000
+Start setting power management policy for NVMe device...
+set-feature:02 (Power Management), value:00000000
+Start setting interrupt coalescing policy for NVMe device...
+set-feature:08 (Interrupt Coalescing), value:00000000
+Start setting write atomicity policy for NVMe device...
+set-feature:0a (Write Atomicity Normal), value:00000000
+Successfully tuning
+Successfully profiling
+Successfully reformating
+Successfully save
+
+return code: 0
+Throughput:  46987.17
+Bandwidth(kb):  188019.31
+Observation:  [188019.31  46987.17]
+Suggested Parameters
+[1, 1, 0, -1, 0, -1, 1]
+stdout: Start setting Arbitration policy for NVMe device...
+set-feature:01 (Arbitration), value:0x000001
+Start setting power management policy for NVMe device...
+set-feature:02 (Power Management), value:00000000
+Start setting interrupt coalescing policy for NVMe device...
+set-feature:08 (Interrupt Coalescing), value:00000000
+Start setting write atomicity policy for NVMe device...
+set-feature:0a (Write Atomicity Normal), value:0x000001
+Successfully tuning
+Successfully profiling
+Successfully reformating
+Successfully save
+
+return code: 0
+Throughput:  48644.277
+Bandwidth(kb):  194577.11
+Observation:  [194577.11   48644.277]
+Suggested Parameters
+[1, 0, 0, -1, 0, -1, 1]
+stdout: Start setting Arbitration policy for NVMe device...
+set-feature:01 (Arbitration), value:00000000
+Start setting power management policy for NVMe device...
+set-feature:02 (Power Management), value:00000000
+Start setting interrupt coalescing policy for NVMe device...
+set-feature:08 (Interrupt Coalescing), value:00000000
+Start setting write atomicity policy for NVMe device...
+set-feature:0a (Write Atomicity Normal), value:0x000001
+Successfully tuning
+Successfully profiling
+Successfully reformating
+Successfully save
+
+return code: 0
+Throughput:  48157.93
+Bandwidth(kb):  192702.34
+Observation:  [192702.34  48157.93]
+Suggested Parameters
+[1, 0, 0, -1, 0, -1, 1]
+stdout: Start setting Arbitration policy for NVMe device...
+set-feature:01 (Arbitration), value:00000000
+Start setting power management policy for NVMe device...
+set-feature:02 (Power Management), value:00000000
+Start setting interrupt coalescing policy for NVMe device...
+set-feature:08 (Interrupt Coalescing), value:00000000
+Start setting write atomicity policy for NVMe device...
+set-feature:0a (Write Atomicity Normal), value:0x000001
+Successfully tuning
+Successfully profiling
+Successfully reformating
+Successfully save
+
+return code: 0
+Throughput:  47378.9
+Bandwidth(kb):  189586.2
+Observation:  [189586.2  47378.9]
+Suggested Parameters
+[1, 0, 0, -1, 0, -1, 0]
+stdout: sudo: unable to read password: Input/output error
+Suggested Parameters
+[4, 5, 2, -1, 1, -1, 1]
+stdout: Start setting Arbitration policy for NVMe device...
+set-feature:01 (Arbitration), value:0x2010005
+Start setting power management policy for NVMe device...
+set-feature:02 (Power Management), value:0x000002
+Start setting interrupt coalescing policy for NVMe device...
+set-feature:08 (Interrupt Coalescing), value:0x000100
+Start setting write atomicity policy for NVMe device...
+set-feature:0a (Write Atomicity Normal), value:0x000001
+Successfully tuning
+Successfully profiling
+Successfully reformating
+Successfully save
+
+return code: 0
+Throughput:  244.67517
+Bandwidth(kb):  978.70135
+Iteration 0 Observation: [978.70135 244.67517]
+Suggested Parameters
+[2, 2, 3, -1, 2, -1, 1]
+stdout: Start setting Arbitration policy for NVMe device...
+set-feature:01 (Arbitration), value:0x1000002
+Start setting power management policy for NVMe device...
+set-feature:02 (Power Management), value:0x000003
+Start setting interrupt coalescing policy for NVMe device...
+set-feature:08 (Interrupt Coalescing), value:0x000200
+Start setting write atomicity policy for NVMe device...
+set-feature:0a (Write Atomicity Normal), value:0x000001
+Successfully tuning
+Successfully profiling
+Successfully reformating
+Successfully save
+
+return code: 0
+Throughput:  244.65517
+Bandwidth(kb):  1049.2413
+Iteration 1 Observation: [1049.2413   244.65517]
+Suggested Parameters
+[2, 1, 3, -1, 0, -1, 1]
+stdout: Start setting Arbitration policy for NVMe device...
+set-feature:01 (Arbitration), value:0x1000001
+Start setting power management policy for NVMe device...
+set-feature:02 (Power Management), value:0x000003
+Start setting interrupt coalescing policy for NVMe device...
+set-feature:08 (Interrupt Coalescing), value:00000000
+Start setting write atomicity policy for NVMe device...
+set-feature:0a (Write Atomicity Normal), value:0x000001
+Successfully tuning
+Successfully profiling
+Successfully reformating
+Successfully save
+
+return code: 0
+Throughput:  244.82759
+Bandwidth(kb):  1049.931
+Iteration 2 Observation: [1049.931    244.82759]
+Suggested Parameters
+[5, 6, 3, -1, 4, -1, 0]
+stdout: Start setting Arbitration policy for NVMe device...
+set-feature:01 (Arbitration), value:0xa010006
+Start setting power management policy for NVMe device...
+set-feature:02 (Power Management), value:0x000003
+Start setting interrupt coalescing policy for NVMe device...
+set-feature:08 (Interrupt Coalescing), value:0x006400
+Start setting write atomicity policy for NVMe device...
+set-feature:0a (Write Atomicity Normal), value:00000000
+Successfully tuning
+Successfully profiling
+Successfully reformating
+Successfully save
+
+return code: 0
+Throughput:  245.03448
+Bandwidth(kb):  1050.7587
+Iteration 3 Observation: [1050.7587   245.03448]
+Suggested Parameters
+[5, 7, 3, -1, 0, -1, 0]
+stdout: Start setting Arbitration policy for NVMe device...
+set-feature:01 (Arbitration), value:0xa010007
+Start setting power management policy for NVMe device...
+set-feature:02 (Power Management), value:0x000003
+Start setting interrupt coalescing policy for NVMe device...
+set-feature:08 (Interrupt Coalescing), value:00000000
+Start setting write atomicity policy for NVMe device...
+set-feature:0a (Write Atomicity Normal), value:00000000
+Successfully tuning
+Successfully profiling
+Successfully reformating
+Successfully save
+
+return code: 0
+Throughput:  244.34483
+Bandwidth(kb):  1047.862
+Iteration 4 Observation: [1047.862    244.34483]
+Suggested Parameters
+[6, 0, 0, -1, 5, -1, 0]
+stdout: Start setting Arbitration policy for NVMe device...
+set-feature:01 (Arbitration), value:0xa0a0000
+Start setting power management policy for NVMe device...
+set-feature:02 (Power Management), value:00000000
+Start setting interrupt coalescing policy for NVMe device...
+set-feature:08 (Interrupt Coalescing), value:0x00ff00
+Start setting write atomicity policy for NVMe device...
+set-feature:0a (Write Atomicity Normal), value:00000000
+Successfully tuning
+Successfully profiling
+Successfully reformating
+Successfully save
+
+return code: 0
+Throughput:  42625.723
+Bandwidth(kb):  170503.03
+Iteration 5 Observation: [170503.03   42625.723]
+Suggested Parameters
+[1, 7, 0, -1, 5, -1, 1]
+stdout: Start setting Arbitration policy for NVMe device...
+set-feature:01 (Arbitration), value:0x000007
+Start setting power management policy for NVMe device...
+set-feature:02 (Power Management), value:00000000
+Start setting interrupt coalescing policy for NVMe device...
+set-feature:08 (Interrupt Coalescing), value:0x00ff00
+Start setting write atomicity policy for NVMe device...
+set-feature:0a (Write Atomicity Normal), value:0x000001
+Successfully tuning
+Successfully profiling
+Successfully reformating
+Successfully save
+
+return code: 0
+Throughput:  41718.242
+Bandwidth(kb):  166943.6
+Iteration 6 Observation: [166943.6    41718.242]
+Suggested Parameters
+[6, 0, 0, -1, 0, -1, 0]
+stdout: Start setting Arbitration policy for NVMe device...
+set-feature:01 (Arbitration), value:0xa0a0000
+Start setting power management policy for NVMe device...
+set-feature:02 (Power Management), value:00000000
+Start setting interrupt coalescing policy for NVMe device...
+set-feature:08 (Interrupt Coalescing), value:00000000
+Start setting write atomicity policy for NVMe device...
+set-feature:0a (Write Atomicity Normal), value:00000000
+Successfully tuning
+Successfully profiling
+Successfully reformating
+Successfully save
+
+return code: 0
+Throughput:  41039.17
+Bandwidth(kb):  164227.31
+Iteration 7 Observation: [164227.31  41039.17]
+Suggested Parameters
+[6, 0, 4, -1, 3, -1, 0]
+stdout: Start setting Arbitration policy for NVMe device...
+set-feature:01 (Arbitration), value:0xa0a0000
+Start setting power management policy for NVMe device...
+set-feature:02 (Power Management), value:0x000004
+Start setting interrupt coalescing policy for NVMe device...
+set-feature:08 (Interrupt Coalescing), value:0x000a00
+Start setting write atomicity policy for NVMe device...
+set-feature:0a (Write Atomicity Normal), value:00000000
+Successfully tuning
+Successfully profiling
+Successfully reformating
+Successfully save
+
+return code: 0
+Throughput:  39946.516
+Bandwidth(kb):  159856.69
+Iteration 8 Observation: [159856.69   39946.516]
+Suggested Parameters
+[1, 0, 0, -1, 5, -1, 0]
+stdout: Start setting Arbitration policy for NVMe device...
+set-feature:01 (Arbitration), value:00000000
+Start setting power management policy for NVMe device...
+set-feature:02 (Power Management), value:00000000
+Start setting interrupt coalescing policy for NVMe device...
+set-feature:08 (Interrupt Coalescing), value:0x00ff00
+Start setting write atomicity policy for NVMe device...
+set-feature:0a (Write Atomicity Normal), value:00000000
+Successfully tuning
+Successfully profiling
+Successfully reformating
+Successfully save
+
+return code: 0
+Throughput:  38640.863
+Bandwidth(kb):  154633.94
+Iteration 9 Observation: [154633.94   38640.863]
+Suggested Parameters
+[4, 3, 0, -1, 5, -1, 1]
+stdout: Start setting Arbitration policy for NVMe device...
+set-feature:01 (Arbitration), value:0x2010003
+Start setting power management policy for NVMe device...
+set-feature:02 (Power Management), value:00000000
+Start setting interrupt coalescing policy for NVMe device...
+set-feature:08 (Interrupt Coalescing), value:0x00ff00
+Start setting write atomicity policy for NVMe device...
+set-feature:0a (Write Atomicity Normal), value:0x000001
+Successfully tuning
+Successfully profiling
+Successfully reformating
+Successfully save
+
+return code: 0
+Throughput:  38273.758
+Bandwidth(kb):  153095.17
+Iteration 10 Observation: [153095.17   38273.758]
+Suggested Parameters
+[1, 7, 4, -1, 3, -1, 0]
+stdout: Start setting Arbitration policy for NVMe device...
+set-feature:01 (Arbitration), value:0x000007
+Start setting power management policy for NVMe device...
+set-feature:02 (Power Management), value:0x000004
+Start setting interrupt coalescing policy for NVMe device...
+set-feature:08 (Interrupt Coalescing), value:0x000a00
+Start setting write atomicity policy for NVMe device...
+set-feature:0a (Write Atomicity Normal), value:00000000
+Successfully tuning
+Successfully profiling
+Successfully reformating
+Successfully save
+
+return code: 0
+Throughput:  37288.414
+Bandwidth(kb):  149224.28
