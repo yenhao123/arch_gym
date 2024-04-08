@@ -169,6 +169,7 @@ def run_experiment(experiment: config.ExperimentConfig,
       logger=eval_logger,
       observers=experiment.observers)
 
+  # 每 eval_very 次執行一次 evaluation
   steps = 0
   while steps < max_num_actor_steps:
     eval_loop.run(num_episodes=num_eval_episodes)

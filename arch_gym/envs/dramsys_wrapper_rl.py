@@ -43,7 +43,7 @@ class DRAMSysEnvWrapper(dm_env.Environment):
     self._last_info = None
     self.helper = helpers()
     self.env_wrapper_sel = env_wrapper_sel
-
+    self._observation = None
 
     # Convert action and observation specs.
     obs_space = self._environment.observation_space
@@ -73,6 +73,9 @@ class DRAMSysEnvWrapper(dm_env.Environment):
       observation, reward, done, info = self._environment.step(agents_action)
     else:
       observation, reward, done, info = self._environment.step(action)
+    #[JONY]
+    self._observation = observation
+
     self._reset_next_step = done
     self._last_info = info
 
@@ -92,6 +95,10 @@ class DRAMSysEnvWrapper(dm_env.Environment):
       return dm_env.termination(reward, observation)
     return dm_env.transition(reward, observation)
 
+  #[JONY]
+  def get_obs(self):
+    return self._observation
+  
   def observation_spec(self) -> types.NestedSpec:
     return self._observation_spec
 

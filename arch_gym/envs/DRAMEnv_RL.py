@@ -27,6 +27,9 @@ import numpy
 
 import random
 
+LOG_DIR = "logs/Details"
+
+
 class DRAMEnv(gym.Env):
     def __init__(self,
                  rl_form: str = 'tdm',
@@ -271,7 +274,6 @@ class DRAMEnv(gym.Env):
             obs = self.runDRAMEnv()
         else:
             print("Error in writing configs")
-        print(obs)
         
         reward = self.calculate_reward(obs[1], obs[2])
         
@@ -306,6 +308,7 @@ class DRAMEnv(gym.Env):
 
         if(type(action) == dict):
             write_ok = self.helpers.read_modify_write_dramsys(action)
+            raise NotImplementedError
         else:
             print("[Env][Action]", action)
             action_decoded = self.helpers.action_decoder_rl(action, self.rl_form)

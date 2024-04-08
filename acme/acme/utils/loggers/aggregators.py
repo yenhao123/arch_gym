@@ -34,6 +34,7 @@ class Dispatcher(base.Logger):
     """Writes `values` to the underlying `Logger` objects."""
     if self._serialize_fn:
       values = self._serialize_fn(values)
+
     for logger in self._to:
       logger.write(values)
 

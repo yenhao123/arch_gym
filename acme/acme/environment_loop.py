@@ -111,6 +111,7 @@ class EnvironmentLoop(core.Worker):
         # One environment step was completed. Observe the current state of the
         # environment, the current timestep and the action.
         observer.observe(self._environment, timestep, action)
+
       if self._should_update:
         self._actor.update()
 
@@ -125,7 +126,11 @@ class EnvironmentLoop(core.Worker):
       episode_return = tree.map_structure(operator.iadd,
                                           episode_return,
                                           timestep.reward)
-
+    
+      # [JONY]
+      obs = self._environment.get_obs()
+      power, latency = obs[1], obs[2]
+      
     # Record counts.
     counts = self._counter.increment(episodes=1, steps=episode_steps)
 
@@ -139,6 +144,15 @@ class EnvironmentLoop(core.Worker):
     result.update(counts)
     for observer in self._observers:
       result.update(observer.get_metrics())
+
+    # [JONY]
+    result.update({
+        'power': power,
+        'latency': latency,
+    })
+
+    action_dict = {("option_"+str(index+1)): value for index, value in enumerate(action)}
+    result.update(action_dict)
     return result
 
   def run(self,

@@ -81,6 +81,7 @@ def make_inference_fn(
   def inference(params: networks_lib.Params, key: networks_lib.PRNGKey,
                 observations: networks_lib.Observation):
     dist_params, _ = ppo_networks.network.apply(params, observations)
+
     if evaluation and ppo_networks.sample_eval:
       actions = ppo_networks.sample_eval(dist_params, key)
     else:
