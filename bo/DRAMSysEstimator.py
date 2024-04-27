@@ -15,7 +15,6 @@ import time
 from absl import logging
 from absl import flags
 
-
 class DRAMSysEstimator(BaseEstimator):
 
     def __init__(self, PagePolicy='Open', Scheduler='Fifo', SchedulerBuffer="Bankwise", 

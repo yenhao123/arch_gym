@@ -168,7 +168,7 @@ class DRAMEnv(gym.Env):
                 obs.append(float(all_lines[each_idx].split(":")[1].split()[0])/1e3)
             if keywords[2] in all_lines[each_idx]:
                 obs.append(float(all_lines[each_idx].split(":")[1].split()[0])/1e6)
-        
+
         obs = np.asarray(obs)
         print('[Environment] Observation:', obs)
         

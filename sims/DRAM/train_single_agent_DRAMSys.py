@@ -29,6 +29,7 @@ from acme.utils.loggers import aggregators
 from acme.utils.loggers import base
 
 from arch_gym.envs import dramsys_wrapper_rl
+import launchpad as lp
 
 print("Import Successful")
 
@@ -46,7 +47,7 @@ _RL_FORM = flags.DEFINE_string('rl_form', 'sa', 'RL form.')
 
 
 # Hyperparameters for each RL algorithm
-_NUM_STEPS = flags.DEFINE_integer('num_steps', 250000, 'Number of training steps.')
+_NUM_STEPS = flags.DEFINE_integer('num_steps', 100, 'Number of training steps.')
 _EVAL_EVERY = flags.DEFINE_integer('eval_every', 50, 'Number of evaluation steps.')
 _EVAL_EPISODES = flags.DEFINE_integer('eval_episodes', 10, 'Number of evaluation episode.')
 _SEED = flags.DEFINE_integer('seed', 1, 'Random seed.')

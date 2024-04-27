@@ -13,13 +13,14 @@ import pandas as pd
 from absl import flags
 from absl import app
 
-flags.DEFINE_string('workload', 'stream.stl', 'Workload trace file')
-flags.DEFINE_integer('num_iter', 16, 'Number of training steps.')
+flags.DEFINE_string('workload', 'mediabench_jpegdc_tail.stl', 'Workload trace file')
+#raise "Remember change workload"
+flags.DEFINE_integer('num_iter', 400, 'Number of training steps.')
 flags.DEFINE_integer('random_state', 2, 'Random state.')
 flags.DEFINE_string('traject_dir', 'bo_trajectories', 'Directory to store data.')
 flags.DEFINE_string('exp_config_file', 'exp_config.ini', 'Experiment config file.')
 flags.DEFINE_string('summary_dir', ".", 'Directory to store data.')
-flags.DEFINE_string('reward_formulation', 'power', 'Reward formulation')
+flags.DEFINE_string('reward_formulation', 'both', 'Reward formulation')
 flags.DEFINE_bool('use_envlogger', False, 'Use EnvLogger to log environment data.')
 FLAGS = flags.FLAGS
 

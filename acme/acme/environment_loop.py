@@ -128,8 +128,11 @@ class EnvironmentLoop(core.Worker):
                                           timestep.reward)
     
       # [JONY]
+      '''
       obs = self._environment.get_obs()
-      power, latency = obs[1], obs[2]
+      power, latency = obs[1], obs[2]     
+      '''
+
       
     # Record counts.
     counts = self._counter.increment(episodes=1, steps=episode_steps)
@@ -146,13 +149,17 @@ class EnvironmentLoop(core.Worker):
       result.update(observer.get_metrics())
 
     # [JONY]
+    '''
     result.update({
         'power': power,
         'latency': latency,
     })
-
+    '''
+    '''
     action_dict = {("option_"+str(index+1)): value for index, value in enumerate(action)}
     result.update(action_dict)
+    '''
+
     return result
 
   def run(self,
