@@ -18,6 +18,7 @@ import numpy as np
 import pandas as pd
 
 
+os.sys.path.insert(0, os.path.abspath('../../vizier/'))
 
 
 from arch_gym.envs import dramsys_wrapper
