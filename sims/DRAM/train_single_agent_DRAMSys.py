@@ -153,6 +153,7 @@ def build_experiment_config():
         env = wrap_in_envlogger(env, envlogger_dir)
     
     env_spec = specs.make_environment_spec(env)
+
     if FLAGS.rl_algo == 'ppo':
         config = ppo.PPOConfig(entropy_cost=FLAGS.entropy_cost,
                             learning_rate=FLAGS.learning_rate,

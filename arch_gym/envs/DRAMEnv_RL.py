@@ -28,7 +28,7 @@ import numpy
 import random
 
 LOG_DIR = "logs/Details"
-
+N_CONFIG = 8
 
 class DRAMEnv(gym.Env):
     def __init__(self,
@@ -53,7 +53,8 @@ class DRAMEnv(gym.Env):
                 self.action_space = gym.spaces.Box(low=0, high=1, shape=(1,), dtype=np.float32)
         elif(rl_form == 'sa'):
             self.observation_space = gym.spaces.Box(low=0, high=1e3, shape=(3,), dtype=np.float32)
-            self.action_space = gym.spaces.Box(low=-1, high=1, shape=(10,))
+            #Y self.action_space = gym.spaces.Box(low=-1, high=1, shape=(10,))
+            self.action_space = gym.spaces.Box(low=-1, high=1, shape=(N_CONFIG,))
         elif(rl_form == 'macme'):
             self.observation_space = [gym.spaces.Box(low=0, high=1e3, shape=(3,))] * num_agents
             
@@ -313,6 +314,7 @@ class DRAMEnv(gym.Env):
             print("[Env][Action]", action)
             action_decoded = self.helpers.action_decoder_rl(action, self.rl_form)
             write_ok = self.helpers.read_modify_write_dramsys(action_decoded)
+
         return write_ok
     
 

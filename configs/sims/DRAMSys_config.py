@@ -18,6 +18,8 @@ os.sys.path.insert(0, proj_root_path  + "/arch_gym/envs")
 ##############################
 dram_mem_controller_config = os.path.join(proj_root_path, "sims/DRAM/DRAMSys/library/resources/configs/mcconfigs")
 dram_mem_controller_config_file = os.path.join(dram_mem_controller_config, "policy.json")
+dram_mem_controller_mmspec = os.path.join(proj_root_path, "sims/DRAM/DRAMSys/library/resources/configs/memspecs")
+dram_mem_controller_mmspec_file = os.path.join(dram_mem_controller_mmspec, "MICRON_4Gb_DDR4-2400_8bit_A.json")
 binary_name = "DRAMSys"
 exe_path = os.path.join(proj_root_path, "sims/DRAM/binary/DRAMSys")
 sim_config = os.path.join(proj_root_path, "sims/DRAM/DRAMSys/library/simulations/ddr3-example.json")

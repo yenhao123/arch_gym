@@ -31,10 +31,10 @@ class helpers():
     
     def action_mapper(self, action, param):
         """
-        RL agent outputs actions in [0,1]
+        RL agent outputs actions in [-1,1]
 
         This function maps the action space to the actual values
-        we split the action space (0,1) into equal parts depending on the number of valid actions each parameter can take
+        we split the action space (-1,1) into equal parts depending on the number of valid actions each parameter can take
         We then bin the action to the appropriate range
         """
         num_bins = len(param)
@@ -685,7 +685,39 @@ class helpers():
         #des_tup_new, possible_des_cnt = self.gen_neigh_and_eval(des_tup)
         #dse_handler.explore()
     
+    def action_decoder_rl(self, act_encoded, rl_form):
+        """
+        Decode the action space for the RL agent
+        """
+        print("[Action Encoded]", act_encoded)
+        act_decoded = {}
+        
+        # simle Encoding for string action space for memory controller
+        cas_mapper = {0:16, 1:17, 2:18}
+        cwl_mapper = {0:16, 1:17, 2:18}
+        rcd_mapper = {0:16, 1:17, 2:18}
+        rp_mapper = {0:16, 1:17, 2:18}
+        ras_mapper = {0:16, 1:17, 2:18}
+        rrd_mapper = {0:16, 1:17, 2:18}
+        faw_mapper = {0:16, 1:17, 2:18}
+        rfc_mapper = {0:210, 1:420, 2:630}
+
+        if(rl_form == 'sa' or rl_form == 'macme_continuous'):
+            act_decoded["cas"] =  cas_mapper[self.action_mapper(act_encoded[0], cas_mapper)]
+            act_decoded["cwl"]  =  cwl_mapper[self.action_mapper(act_encoded[1], cwl_mapper)]
+            act_decoded["rcd"]  =  rcd_mapper[self.action_mapper(act_encoded[2], rcd_mapper)]
+            act_decoded["rp"]  =  rp_mapper[self.action_mapper(act_encoded[3], rp_mapper)]
+            act_decoded["ras"]  =  ras_mapper[self.action_mapper(act_encoded[4], ras_mapper)]
+            act_decoded["rrd"]  =  rrd_mapper[self.action_mapper(act_encoded[5], rrd_mapper)]
+            act_decoded["faw"]  =  faw_mapper[self.action_mapper(act_encoded[6],faw_mapper)]
+            act_decoded["rfc"]  =  rfc_mapper[self.action_mapper(act_encoded[7], rfc_mapper)]
+        else:
+            print("Invalid RL form")
+            sys.exit()
+        print("[Action Decoder]", act_decoded)
+        return act_decoded
     
+    '''Y
     def action_decoder_rl(self, act_encoded, rl_form):
         """
         Decode the action space for the RL agent
@@ -751,7 +783,7 @@ class helpers():
             sys.exit()
         print("[Action Decoder]", act_decoded)
         return act_decoded
-
+    '''
 
     def action_decoder_ga(self, act_encoded):
         print(act_encoded)
@@ -1067,6 +1099,33 @@ class helpers():
     def read_modify_write_dramsys(self, action):
         print("[envHelpers][Action]", action)
         op_success = False
+        mem_spec_file = DRAMSys_config.dram_mem_controller_mmspec_file
+
+        try:
+            with open (mem_spec_file, "r") as JsonFile:
+                data = json.load(JsonFile)
+                data['memspec']['memtimingspec']['CL'] = action['cas']
+                data['memspec']['memtimingspec']['WL'] = action['cwl']
+                data['memspec']['memtimingspec']['RCD'] = action['rcd']
+                data['memspec']['memtimingspec']['RP'] = action['rp']
+                data['memspec']['memtimingspec']['RAS'] = action['ras']
+                data['memspec']['memtimingspec']['RRD_L'] = action['rrd']
+                data['memspec']['memtimingspec']['FAW'] = action['faw']
+                data['memspec']['memtimingspec']['RFC'] = action['rfc']
+
+                with open (mem_spec_file, "w") as JsonFile:
+                    json.dump(data,JsonFile)
+                op_success = True
+        except Exception as e:
+            print(str(e))
+            op_success = False
+
+        return op_success
+    
+    '''Y
+    def read_modify_write_dramsys(self, action):
+        print("[envHelpers][Action]", action)
+        op_success = False
         mem_ctrl_file = DRAMSys_config.dram_mem_controller_config_file
 
         try:
@@ -1089,8 +1148,9 @@ class helpers():
         except Exception as e:
             print(str(e))
             op_success = False
-        return op_success
 
+        return op_success
+    '''
     def writemem_ctrlr(self,action_dict):
         mem_ctrl_filename = DRAMSys_config.dram_mem_controller_config_file
         write_success = False
