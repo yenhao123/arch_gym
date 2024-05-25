@@ -122,6 +122,7 @@ def batched_feed_forward_with_extras_to_actor_core(
     rng1, rng2 = jax.random.split(rng)
     observation = utils.add_batch_dim(observation)
     action, extras = utils.squeeze_batch_dim(policy(params, rng1, observation))
+    
     return action, SimpleActorCoreStateWithExtras(rng2, extras)
 
   def init(rng: PRNGKey) -> SimpleActorCoreStateWithExtras:

@@ -67,7 +67,7 @@ class Adder(abc.ABC):
       next_timestep: dm_env.TimeStep,
       extras: types.NestedArray = (),
   ):
-    """Defines the adder `add` interface.
+    """Defines the adder `add`  mk.
 
     Args:
       action: A possibly nested structure corresponding to a_t.

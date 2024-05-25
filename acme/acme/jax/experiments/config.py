@@ -137,6 +137,7 @@ class ExperimentConfig(Generic[builders.Networks, builders.Policy,
   network_factory: NetworkFactory[builders.Networks]
   environment_factory: types.EnvironmentFactory
   max_num_actor_steps: int
+  max_num_actor_episodes: int
   seed: int
   # policy_network_factory is deprecated. Use builder.make_policy to
   # create the policy.

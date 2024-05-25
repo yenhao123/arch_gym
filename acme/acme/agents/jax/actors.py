@@ -79,6 +79,7 @@ class GenericActor(core.Actor, Generic[actor_core.State, actor_core.Extras]):
   def select_action(self,
                     observation: network_lib.Observation) -> types.NestedArray:
     action, self._state = self._policy(self._params, observation, self._state)
+
     return utils.to_numpy(action)
 
   def observe_first(self, timestep: dm_env.TimeStep):
@@ -90,6 +91,7 @@ class GenericActor(core.Actor, Generic[actor_core.State, actor_core.Extras]):
       self._variable_client.update_and_wait()
 
   def observe(self, action: network_lib.Action, next_timestep: dm_env.TimeStep):
+
     if self._adder:
       self._adder.add(
           action, next_timestep, extras=self._get_extras(self._state))

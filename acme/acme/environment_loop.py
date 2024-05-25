@@ -92,8 +92,10 @@ class EnvironmentLoop(core.Worker):
     episode_return = tree.map_structure(_generate_zeros_from_spec,
                                         self._environment.reward_spec())
     timestep = self._environment.reset()
+
     # Make the first observation.
     self._actor.observe_first(timestep)
+
     for observer in self._observers:
       # Initialize the observer with the current state of the env after reset
       # and the initial timestep.
@@ -103,6 +105,7 @@ class EnvironmentLoop(core.Worker):
     while not timestep.last():
       # Generate an action from the agent's policy and step the environment.
       action = self._actor.select_action(timestep.observation)
+
       timestep = self._environment.step(action)
 
       # Have the agent observe the timestep and let the actor update itself.
@@ -117,7 +120,7 @@ class EnvironmentLoop(core.Worker):
 
       # Book-keeping.
       episode_steps += 1
-
+      #raise "2"
       # Equivalent to: episode_return += timestep.reward
       # We capture the return value because if timestep.reward is a JAX
       # DeviceArray, episode_return will not be mutated in-place. (In all other
@@ -126,7 +129,6 @@ class EnvironmentLoop(core.Worker):
       episode_return = tree.map_structure(operator.iadd,
                                           episode_return,
                                           timestep.reward)
-    
       # [JONY]
       '''
       obs = self._environment.get_obs()
@@ -202,6 +204,11 @@ class EnvironmentLoop(core.Worker):
         step_count += result['episode_length']
         # Log the given episode results.
         self._logger.write(result)
+        print(f'Episode {episode_count} finished after {result["episode_length"]} steps.')
+    print(num_episodes)
+    print(num_steps)
+    print(step_count)
+    raise "1"
 
     return step_count
 

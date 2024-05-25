@@ -165,6 +165,7 @@ class ReverbAdder(base.Adder):
 
   def add_first(self, timestep: dm_env.TimeStep):
     """Record the first observation of a trajectory."""
+
     if not timestep.first():
       raise ValueError('adder.add_first with an initial timestep (i.e. one for '
                        'which timestep.first() is True')
@@ -188,6 +189,7 @@ class ReverbAdder(base.Adder):
     # Add the timestep to the buffer.
     has_extras = (len(extras) > 0 if isinstance(extras, Sized)  # pylint: disable=g-explicit-length-test
                   else extras is not None)
+    
     current_step = dict(
         # Observation was passed at the previous add call.
         action=action,
@@ -196,6 +198,7 @@ class ReverbAdder(base.Adder):
         # Start of episode indicator was passed at the previous add call.
         **({'extras': extras} if has_extras else {})
     )
+
     self._writer.append(current_step)
 
     # Record the next observation and write.

@@ -131,6 +131,7 @@ def run_experiment(experiment: config.ExperimentConfig,
   actor = _LearningActor(actor, learner, dataset, replay_tables,
                          rate_limiters_max_diff, checkpointer)
 
+
   train_loop = acme.environment_loop.EnvironmentLoop(
       environment,
       actor,
@@ -138,15 +139,20 @@ def run_experiment(experiment: config.ExperimentConfig,
       logger=train_logger,
       observers=experiment.observers)
 
+
   max_num_actor_steps = (
       experiment.max_num_actor_steps -
       parent_counter.get_counts().get(train_counter.get_steps_key(), 0))
-
+  
   if num_eval_episodes == 0:
+    '''Y
     # No evaluation. Just run the training loop.
     train_loop.run(num_steps=max_num_actor_steps)
+    '''
+    #train_loop.run(num_episodes=experiment.max_num_actor_episodes)
+    train_loop.run(num_steps=max_num_actor_steps)
     return
-
+  raise "1"
   # Create the evaluation actor and loop.
   eval_counter = counting.Counter(
       parent_counter, prefix='evaluator', time_delta=0.)
