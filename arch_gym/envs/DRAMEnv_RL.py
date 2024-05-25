@@ -9,6 +9,7 @@ os.sys.path.insert(0, settings_dir_path)
 os.sys.path.insert(0, settings_dir_path + '/../../')
 
 from configs import arch_gym_configs
+from pathlib import Path
 import gym
 from gym.utils import seeding
 from envHelpers import helpers
@@ -34,7 +35,7 @@ class DRAMEnv(gym.Env):
     def __init__(self,
                  rl_form: str = 'tdm',
                  rl_algo: str = 'ppo',
-                 max_steps: int = 1,
+                 max_steps: int = 10,
                  num_agents: int = 1,
                  reward_formulation: str = 'latency',
                  reward_scaling: str = 'false',
@@ -131,12 +132,15 @@ class DRAMEnv(gym.Env):
         self.binary_name = arch_gym_configs.binary_name
         self.exe_path = arch_gym_configs.exe_path
         self.sim_config = arch_gym_configs.sim_config
+        self.sim_config_dir = arch_gym_configs.sim_config_dir
         self.experiment_name = arch_gym_configs.experiment_name
         self.logdir = arch_gym_configs.logdir
 
         self.reward_form = reward_formulation
         self.reward_scaling = reward_scaling
-
+        self.cur_config_idx = 0
+        self.sim_config_arr = self.read_config_dir()
+        
         print("[DEBUG][Reward Scaling]", self.reward_scaling)
         self.max_steps = max_steps
         self.steps = 0
@@ -238,14 +242,26 @@ class DRAMEnv(gym.Env):
             reward = [np.copy(reward)] * self.num_agents
         return reward
 
+    def read_config_dir(self):
+        sim_config_arr = []
+        for f in Path(self.sim_config_dir).iterdir():
+            sim_config_arr.append(f)
+        return sim_config_arr
+        
+
     def runDRAMEnv(self):
         '''
         Method to launch the DRAM executables given an action
         '''
         exe_path = self.exe_path
         exe_name = self.binary_name
+        '''Y
         config_name = self.sim_config
-        exe_final = os.path.join(exe_path,exe_name)
+        '''
+        
+        config_name = self.sim_config_arr[self.cur_config_idx]
+        print(config_name)
+        exe_final = os.path.join(exe_path, exe_name)
 
         process = subprocess.Popen([exe_final, config_name],stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
@@ -288,11 +304,13 @@ class DRAMEnv(gym.Env):
             obs = [obs.copy()] * self.num_agents
 
         print("Episode:", self.episode, " Rewards:", reward)
+        self.cur_config_idx += 1
         return obs, reward, done, {}
 
     def reset(self):
         #print("Reseting Environment!")
         self.steps = 0
+        self.cur_config_idx = 0
         if (self.rl_form == "macme" or self.rl_form == "macme_continuous"):
             return [self.observation_space[0].sample()]* self.num_agents
         else:

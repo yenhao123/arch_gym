@@ -45,11 +45,14 @@ _RL_AGO = flags.DEFINE_string('rl_algo', 'ppo', 'RL algorithm.')
 # select which RL form to use
 _RL_FORM = flags.DEFINE_string('rl_form', 'sa', 'RL form.')
 
+# Hyperparameters for the environment
+_N_STEPS = 10
 
 # Hyperparameters for each RL algorithm
-_NUM_STEPS = flags.DEFINE_integer('num_steps', 100, 'Number of training steps.')
+_NUM_STEPS = flags.DEFINE_integer('num_steps', 200, 'Number of training steps.')
+_NUM_EPISODES = flags.DEFINE_integer('num_episodes', 20, 'Number of training steps.')
 _EVAL_EVERY = flags.DEFINE_integer('eval_every', 50, 'Number of evaluation steps.')
-_EVAL_EPISODES = flags.DEFINE_integer('eval_episodes', 10, 'Number of evaluation episode.')
+_EVAL_EPISODES = flags.DEFINE_integer('eval_episodes', 0, 'Number of evaluation episode.') # 0: only train
 _SEED = flags.DEFINE_integer('seed', 1, 'Random seed.')
 _LEARNING_RATE = flags.DEFINE_float('learning_rate', 2e-5, 'Learning rate.')
 # Acceptable values for reward: power, latency, and both (both means latency & power)
@@ -145,7 +148,8 @@ def build_experiment_config():
 
     env = dramsys_wrapper_rl.make_dramsys_env(rl_form=FLAGS.rl_form,
             reward_formulation = _REWARD_FORM.value,
-            reward_scaling = _REWARD_SCALE.value)
+            reward_scaling = _REWARD_SCALE.value,
+            max_steps = _N_STEPS)
     if FLAGS.use_envlogger:
         envlogger_dir = os.path.join(FLAGS.summarydir, get_directory_name(), FLAGS.envlogger_dir)
         if(not os.path.exists(envlogger_dir)):
@@ -173,7 +177,8 @@ def build_experiment_config():
             eval_policy_network_factory = make_eval_policy,
             seed = FLAGS.seed,
             logger_factory=_logger_factory,
-            max_num_actor_steps=FLAGS.num_steps)
+            max_num_actor_steps=FLAGS.num_steps,
+            max_num_actor_episodes=FLAGS.num_episodes,)
     elif FLAGS.rl_algo == 'sac':
         config = sac.SACConfig(
             learning_rate=FLAGS.learning_rate,

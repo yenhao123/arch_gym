@@ -5,22 +5,24 @@ from sklearn.metrics import make_scorer
 import os
 os.sys.path.insert(0, os.path.abspath('../../'))
 print(os.sys.path)
-from  bo.DRAMSysEstimator import DRAMSysEstimator
+from  bo.DRAMSysEstimator import DRAMSysEstimator_Y
 import configparser
 import numpy as np
 import time
 import pandas as pd
+import argparse
 from absl import flags
 from absl import app
 
-flags.DEFINE_string('workload', 'mediabench_jpegdc_tail.stl', 'Workload trace file')
+flags.DEFINE_string('workload', 'canny', 'Workload trace file')
 #raise "Remember change workload"
-flags.DEFINE_integer('num_iter', 400, 'Number of training steps.')
+flags.DEFINE_integer('config_idx', None, 'Index for configuration')
+flags.DEFINE_integer('num_iter', 200, 'Number of training steps.')
 flags.DEFINE_integer('random_state', 2, 'Random state.')
 flags.DEFINE_string('traject_dir', 'bo_trajectories', 'Directory to store data.')
 flags.DEFINE_string('exp_config_file', 'exp_config.ini', 'Experiment config file.')
 flags.DEFINE_string('summary_dir', ".", 'Directory to store data.')
-flags.DEFINE_string('reward_formulation', 'both', 'Reward formulation')
+flags.DEFINE_string('reward_formulation', 'latency', 'Reward formulation')
 flags.DEFINE_bool('use_envlogger', False, 'Use EnvLogger to log environment data.')
 FLAGS = flags.FLAGS
 
@@ -30,13 +32,14 @@ def scorer(estimator, X, y=None):
    If the reward formulation is to maximize, then the fitness is returned as is.
    If the reward formulation is to minimize, then the fitness is returned as -1*fitness.
    """
+
    # definition of "good" score is minimum 
    # but default is higher score is better so * -1 for our purposes 
    return 1 * estimator.fit(X, y)
 
 
 def find_best_params_test(X,parameters, n_iter, seed, exp_name, traject_dir, exp_log_dir):
-   
+   '''Y
    model = DRAMSysEstimator(PagePolicy= parameters['PagePolicy'],
                            Scheduler= parameters['Scheduler'],
                            SchedulerBuffer= parameters['SchedulerBuffer'],
@@ -49,8 +52,18 @@ def find_best_params_test(X,parameters, n_iter, seed, exp_name, traject_dir, exp
                            MaxActiveTransactions= parameters['MaxActiveTransactions'],
                            exp_name= exp_name,
                            traject_dir= traject_dir)
-
-    
+   '''
+   model = DRAMSysEstimator_Y(cas= parameters['cas'],
+                           cwl= parameters['cwl'],
+                           rcd= parameters['rcd'],
+                           rp= parameters['rp'],
+                           ras= parameters['ras'],
+                           rrd= parameters['rrd'],
+                           faw= parameters['faw'],
+                           rfc= parameters['rfc'],
+                           exp_name= exp_name,
+                           traject_dir= traject_dir)    
+   
    # use config parser to update its parameters
    config = configparser.ConfigParser()
    config.read(FLAGS.exp_config_file)
@@ -73,7 +86,7 @@ def find_best_params_test(X,parameters, n_iter, seed, exp_name, traject_dir, exp
         random_state=FLAGS.random_state,
         scoring=scorer,
         n_jobs=1,
-        cv = 2,
+        cv=2,
    )
    
    # executes bayesian optimization
@@ -82,7 +95,41 @@ def find_best_params_test(X,parameters, n_iter, seed, exp_name, traject_dir, exp
     
    return opt.best_params_
 
+def main(_):
+   # To do : Configure the workload trace here
+   dummy_X = np.array([1,2,3,4,5,6])
 
+   # define architectural parameters to search over
+   parameters = {"cas": Integer(2,31),
+                "cwl":  Integer(2,31),
+                "rcd": Integer(2,31),
+                "rp": Integer(2,31),
+                "ras": Integer(9,63),
+                "rrd": Integer(2,15),
+                "faw": Integer(2,63),
+                "rfc" : Integer(210,630),
+                }
+
+   exp_name = str(FLAGS.workload)
+   # log directories for storing exp csvs
+   exp_log_dir = os.path.join(FLAGS.summary_dir, "bo_logs", FLAGS.reward_formulation, exp_name)
+   os.makedirs(exp_log_dir, exist_ok=True)
+   exp_config_dir = os.path.join(exp_log_dir, str(FLAGS.config_idx))
+   
+   # get the current working directory and append the exp name
+   traject_dir = os.path.join(FLAGS.summary_dir, FLAGS.traject_dir, FLAGS.reward_formulation, exp_name)
+
+   print("Trajectory directory: " + traject_dir)
+
+   find_best_params_test(dummy_X, parameters,
+                        FLAGS.num_iter,
+                        FLAGS.random_state,
+                        exp_name,
+                        traject_dir,
+                        exp_config_dir
+                        )
+
+'''Y
 def main(_):
 
    # To do : Configure the workload trace here
@@ -119,7 +166,7 @@ def main(_):
                         traject_dir,
                         exp_log_dir
                         )
-  
+'''  
 
 if __name__ == '__main__':
    app.run(main)

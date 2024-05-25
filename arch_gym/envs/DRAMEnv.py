@@ -37,6 +37,7 @@ class DRAMEnv(gym.Env):
         self.cost_model = cost_model
 
         self.reward_formulation = reward_formulation
+
         self.max_steps = 100
         self.steps = 0
         self.max_episode_len = 10
@@ -54,10 +55,9 @@ class DRAMEnv(gym.Env):
         
         keywords = ["Total Energy", "Average Power", "Total Time"]
 
-        energy = re.findall(keywords[0],outstream)
+        #energy = re.findall(keywords[0],outstream)
         all_lines = outstream.splitlines()
         for each_idx in range(len(all_lines)):
-            
             if keywords[0] in all_lines[each_idx]:
                 obs.append(float(all_lines[each_idx].split(":")[1].split()[0])/1e9)
             if keywords[1] in all_lines[each_idx]:
@@ -79,7 +79,7 @@ class DRAMEnv(gym.Env):
         obs_dict["Latency"] = obs[2]
 
         return obs_dict
-    
+    '''
     def calculate_reward(self, power, latency):
         target_power = DRAMSys_config.target_power
         target_latency = DRAMSys_config.target_latency
@@ -101,7 +101,29 @@ class DRAMEnv(gym.Env):
         if(rl_config.rl_agent):
             reward = 1/reward
         
+        return reward    
+    '''
+    def calculate_reward(self, power, latency):
+        target_power = DRAMSys_config.target_power
+        target_latency = DRAMSys_config.target_latency
+        print("Power:", power, "Latency:", latency, "Target Power:", target_power, "Target Latency:", target_latency)
+        #power_norm = max((power - target_power)/target_power, self.reward_cap)
+        #latency_norm = max((latency-target_latency)/target_latency, self.reward_cap)
+        if self.reward_formulation == "power":
+            reward = 1 / power
+        elif self.reward_formulation == "latency":
+            reward = 1 / latency
+        elif self.reward_formulation == "both":
+            power_norm = 1 / power
+            latency_norm = 1 / latency
+            reward = power_norm * latency_norm
+
+        # For RL agent, we want to maximize the reward
+        if(rl_config.rl_agent):
+            reward = 1/reward
+        
         return reward
+
 
     def runDRAMEnv(self):
         '''
@@ -111,19 +133,27 @@ class DRAMEnv(gym.Env):
         exe_name = self.binary_name
         config_name = self.sim_config
         exe_final = os.path.join(exe_path,exe_name)
-        print(exe_final)
-        print(config_name)
-        process = subprocess.Popen([exe_final, config_name],stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-
-        out, err = process.communicate()
-        if err.decode() == "":
-            outstream = out.decode()
-        else:
-            print(err.decode())
-            sys.exit()
         
-        obs = self.get_observation(outstream)
-        obs = obs.reshape(1,3)
+        try:
+            process = subprocess.Popen([exe_final, config_name],stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            process.wait(timeout=3)
+            
+            out, err = process.communicate()
+            
+            if err.decode() == "":
+                outstream = out.decode()
+            else:
+                print(err.decode())
+                sys.exit()
+
+            obs = self.get_observation(outstream)
+            obs = obs.reshape(1,3)
+        except subprocess.TimeoutExpired:
+            # If the process exceeds the timeout, terminate it
+            process.terminate()
+            obs = np.array([[-1000000,1000000,1000000]])
+            #raise "Process terminated due to timeout."
+
         return obs
 
     def step(self, action_dict):
@@ -175,7 +205,7 @@ class DRAMEnv(gym.Env):
         else:
             action_decoded = self.helpers.action_decoder_rl(action)
             write_ok = self.helpers.read_modify_write_dramsys(action_decoded)
-            
+
         return write_ok
     
 

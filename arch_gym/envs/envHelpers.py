@@ -693,14 +693,16 @@ class helpers():
         act_decoded = {}
         
         # simle Encoding for string action space for memory controller
-        cas_mapper = {0:16, 1:17, 2:18}
-        cwl_mapper = {0:16, 1:17, 2:18}
-        rcd_mapper = {0:16, 1:17, 2:18}
-        rp_mapper = {0:16, 1:17, 2:18}
-        ras_mapper = {0:16, 1:17, 2:18}
-        rrd_mapper = {0:16, 1:17, 2:18}
-        faw_mapper = {0:16, 1:17, 2:18}
+
+        cas_mapper = {0:2, 1:17, 2:31}
+        cwl_mapper = {0:2, 1:17, 2:31}
+        rcd_mapper = {0:9, 1:17, 2:31}
+        rp_mapper = {0:2, 1:17, 2:31}
+        ras_mapper = {0:2, 1:39, 2:63}
+        rrd_mapper = {0:2, 1:6, 2:15}
+        faw_mapper = {0:2, 1:26, 2:63}
         rfc_mapper = {0:210, 1:420, 2:630}
+
 
         if(rl_form == 'sa' or rl_form == 'macme_continuous'):
             act_decoded["cas"] =  cas_mapper[self.action_mapper(act_encoded[0], cas_mapper)]

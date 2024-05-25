@@ -1,0 +1,1 @@
+cp -r /home/user/zsim_ramulator/ramulator-pim/zsim-ramulator/shell/canny/dramsys_mem_trace/* /home/user/Desktop/oss-arch-gym/sims/DRAM/DRAMSys/library/resources/traces/ours/canny

@@ -66,6 +66,7 @@ class DRAMSysEnvWrapper(dm_env.Environment):
     """Steps the environment."""
     if self._reset_next_step:
       return self.reset()
+
     if(self.env_wrapper_sel=='macme' or self.env_wrapper_sel=='macme_continuous'):
       agents_action  = []
       for each_agent_action in action:
