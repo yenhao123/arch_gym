@@ -333,15 +333,15 @@ class DRAMSysEstimator_Y(BaseEstimator):
         self.action_dict['faw'] = _params['faw']
         self.action_dict['rfc'] = _params['rfc']
         return self
-    
+    '''
     def calculate_reward(self, energy, latency):
-        '''
+
         reward = np.sum([np.square(configs.target_energy - energy),np.square(configs.target_latency - latency)])
         reward = np.sqrt(reward)        
-        '''
+
         reward = energy * latency
         return reward
-    
+    '''
     def read_modify_write_dramsys(self, action):
         print("[envHelpers][Action]", action)
         op_success = False

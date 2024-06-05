@@ -17,7 +17,7 @@ import envlogger
 import numpy as np
 import pandas as pd
 
-
+os.sys.path.insert(0, os.path.abspath('../../vizier/'))
 from vizier._src.algorithms.designers.random import RandomDesigner
 from arch_gym.envs import dramsys_wrapper
 from arch_gym.envs.envHelpers import helpers
@@ -26,15 +26,16 @@ from vizier.service import pyvizier as vz
 from vizier.service import vizier_server
 from vizier.service import vizier_service_pb2_grpc
 
-flags.DEFINE_string('workload', 'stream.stl', 'Which DRAMSys workload to run?')
-flags.DEFINE_integer('num_steps', 100, 'Number of training steps.')
+flags.DEFINE_string('workload', 'canny', 'Which DRAMSys workload to run?')
+flags.DEFINE_integer('num_steps', 700, 'Number of training steps.')
+flags.DEFINE_integer('config_idx', None, 'Index for configuration')
 flags.DEFINE_integer('num_episodes', 2, 'Number of training episodes.')
 flags.DEFINE_string('traject_dir', 
                     'random_search_trajectories', 
             'Directory to save the dataset.')
 flags.DEFINE_bool('use_envlogger', False, 'Use envlogger to log the data.')  
 flags.DEFINE_string('summary_dir', '.', 'Directory to save the summary.')
-flags.DEFINE_string('reward_formulation', 'power', 'Which reward formulation to use?')
+flags.DEFINE_string('reward_formulation', 'both', 'Which reward formulation to use?')
 flags.DEFINE_integer('seed', 110, 'random_search_hyperparameter')
 FLAGS = flags.FLAGS
 
@@ -90,7 +91,7 @@ def main(_):
     fitness_hist = {}
     problem = vz.ProblemStatement()
     
-
+    '''
     problem.search_space.select_root().add_int_param(name='pagepolicy', min_value = 0, max_value = 3)
     problem.search_space.select_root().add_int_param(name='scheduler', min_value = 0, max_value = 2)
     problem.search_space.select_root().add_int_param(name='schedulerbuffer', min_value = 0, max_value = 2)
@@ -102,6 +103,15 @@ def main(_):
     # problem.search_space.select_root().add_int_param(name='powerdownpolicy', min_value = 0, max_value = 2)
     problem.search_space.select_root().add_int_param(name='arbiter', min_value = 0, max_value = 2)
     problem.search_space.select_root().add_discrete_param(name='maxactivetransactions', feasible_values=[1, 2, 4, 8, 16, 32, 64, 128])
+    '''
+    problem.search_space.select_root().add_int_param(name='cas', min_value = 2, max_value = 31)
+    problem.search_space.select_root().add_int_param(name='cwl', min_value = 2, max_value = 31)
+    problem.search_space.select_root().add_int_param(name='rcd', min_value = 9, max_value = 31)
+    problem.search_space.select_root().add_int_param(name='rp', min_value = 2, max_value = 31)
+    problem.search_space.select_root().add_int_param(name='ras', min_value = 2, max_value = 63)
+    problem.search_space.select_root().add_int_param(name='rrd', min_value = 2, max_value = 15)
+    problem.search_space.select_root().add_int_param(name='faw', min_value = 2, max_value = 64)
+    problem.search_space.select_root().add_int_param(name='rfc', min_value = 210, max_value = 630)
 
     problem.metric_information.append(
         vz.MetricInformation(
@@ -132,11 +142,12 @@ def main(_):
     server.start()
 
     clients.environment_variables.service_endpoint = address  # Server address.
+    '''
     study = clients.Study.from_study_config(
         study_config, owner='owner', study_id='example_study_id')
-
+    '''
      # experiment name 
-    exp_name = "_num_steps_" + str(FLAGS.num_steps) + "_num_episodes_" + str(FLAGS.num_episodes)
+    exp_name = "_num_steps_" + str(FLAGS.num_steps) + "_num_episodes_" + str(FLAGS.num_episodes) + "_" + str(FLAGS.config_idx)
 
     # append logs to base path
     log_path = os.path.join(FLAGS.summary_dir, 'random_search_logs', FLAGS.reward_formulation, exp_name)
@@ -162,19 +173,16 @@ def main(_):
     for suggestion in suggestions:
         count += 1
         
-        PagePolicy = str(suggestion.parameters['pagepolicy'])
-        Scheduler = str(suggestion.parameters['scheduler'])
-        SchedulerBuffer = str(suggestion.parameters['schedulerbuffer'])
-        RequestBufferSize = str(suggestion.parameters['reqest_buffer_size'])
-        RespQueue = str(suggestion.parameters['respqueue'])
-        RefreshPolicy = str(suggestion.parameters['refreshpolicy'])
-        RefreshMaxPostponed = str(suggestion.parameters['refreshmaxpostponed'])
-        RefreshMaxPulledin = str(suggestion.parameters['refreshmaxpulledin'])
-        Arbiter = str(suggestion.parameters['arbiter'])
-        MaxActiveTransactions = str(suggestion.parameters['maxactivetransactions'])
+        cas = str(suggestion.parameters['cas'])
+        cwl = str(suggestion.parameters['cwl'])
+        rcd = str(suggestion.parameters['rcd'])
+        rp = str(suggestion.parameters['rp'])
+        ras = str(suggestion.parameters['ras'])
+        rrd = str(suggestion.parameters['rrd'])
+        faw = str(suggestion.parameters['faw'])
+        rfc = str(suggestion.parameters['rfc'])
 
-        vizier_actions = [PagePolicy, Scheduler, SchedulerBuffer, RequestBufferSize, RespQueue, RefreshPolicy, RefreshMaxPostponed,
-                   RefreshMaxPulledin, Arbiter, MaxActiveTransactions]
+        vizier_actions = [cas, cwl, rcd, rp, ras, rrd, faw, rfc]
         
         
         action = np.asarray(vizier_actions)
@@ -182,6 +190,7 @@ def main(_):
 
         # print("Suggested Parameters for num_cores, freq, mem_type, mem_size are :", num_cores, freq, mem_type, mem_size)
         done, reward, info, obs = (env.step(action_dict))
+        print(reward)
         fitness_hist['reward'] = reward
         fitness_hist['action'] = action
         fitness_hist['obs'] = obs

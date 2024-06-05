@@ -14,6 +14,7 @@ from configs.sims import DRAMSys_config
 from configs.sims import Timeloop_config
 import shutil
 from sims.Timeloop.process_params import TimeloopConfigParams
+from scipy.interpolate import interp1d
 from subprocess import Popen, PIPE
 import pandas as pd
 from math import ceil
@@ -28,6 +29,13 @@ class helpers():
         self.mem_control_basepath = DRAMSys_config.dram_mem_controller_config
         #self.sniper_basepath = arch_gym_configs.sniper_config
         self.timeloop_param_obj = TimeloopConfigParams(Timeloop_config.timeloop_parameters)
+        self.error_model = self.build_error_model()
+    
+    def build_error_model(self):
+        x1_values = np.array([1, 2, 20])
+        x2_values = np.array([4.0e-8, 2.6e-7, 1.3e-4])
+        interp_function = interp1d(x1_values, x2_values, kind='linear', fill_value="extrapolate")
+        return interp_function
     
     def action_mapper(self, action, param):
         """
@@ -787,6 +795,7 @@ class helpers():
         return act_decoded
     '''
 
+    '''
     def action_decoder_ga(self, act_encoded):
         print(act_encoded)
         act_decoded = {}
@@ -810,7 +819,21 @@ class helpers():
         act_decoded["MaxActiveTransactions"]  =  int(act_encoded[9])
 
         return act_decoded
+    '''
+    def action_decoder_ga(self, act_encoded):
+        print(act_encoded)
+        act_decoded = {}
+        
+        act_decoded["cas"] =  int(act_encoded[0])
+        act_decoded["cwl"]  =  int(act_encoded[1])
+        act_decoded["rcd"]  =  int(act_encoded[2])
+        act_decoded["rp"]  =  int(act_encoded[3])
+        act_decoded["ras"]  =  int(act_encoded[4])
+        act_decoded["rrd"]  =  int(act_encoded[5])
+        act_decoded["faw"]  =  int(act_encoded[6])
+        act_decoded["rfc"]  =  int(act_encoded[7])
 
+        return act_decoded
     
     def action_decoder_rl_astraSim(self, act_encoded, system_knob, network_knob, workload_knob, dimension):
         # decode act_encoded into act_decoded
@@ -1097,6 +1120,13 @@ class helpers():
         #rand_actions_decoded = self.action_decoder(rand_actions)
 
         return rand_actions
+    
+    def config_to_err_rate(self, action):
+        err_file = "/home/user/zsim_ramulator/ramulator-pim/zsim-ramulator/shell/canny/error_rate.txt"
+
+        error_rate = str(self.error_model(action["rfc"]))
+        with open (err_file, "w") as file:
+            file.write(error_rate)
     
     def read_modify_write_dramsys(self, action):
         print("[envHelpers][Action]", action)

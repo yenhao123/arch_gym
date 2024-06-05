@@ -14,15 +14,21 @@ import argparse
 from absl import flags
 from absl import app
 
-flags.DEFINE_string('workload', 'canny', 'Workload trace file')
+'''
+require: workload name, config_idx, is_all
+'''
+
+flags.DEFINE_string('workload', 'blackscholes', 'Workload trace file')
 #raise "Remember change workload"
 flags.DEFINE_integer('config_idx', None, 'Index for configuration')
-flags.DEFINE_integer('num_iter', 200, 'Number of training steps.')
+
+flags.DEFINE_integer('num_iter', 100, 'Number of training steps.')
 flags.DEFINE_integer('random_state', 2, 'Random state.')
 flags.DEFINE_string('traject_dir', 'bo_trajectories', 'Directory to store data.')
 flags.DEFINE_string('exp_config_file', 'exp_config.ini', 'Experiment config file.')
 flags.DEFINE_string('summary_dir', ".", 'Directory to store data.')
-flags.DEFINE_string('reward_formulation', 'latency', 'Reward formulation')
+flags.DEFINE_string('reward_formulation', 'both', 'Reward formulation')
+flags.DEFINE_bool('is_all', False, 'record all configurations')
 flags.DEFINE_bool('use_envlogger', False, 'Use EnvLogger to log environment data.')
 FLAGS = flags.FLAGS
 
@@ -114,7 +120,10 @@ def main(_):
    # log directories for storing exp csvs
    exp_log_dir = os.path.join(FLAGS.summary_dir, "bo_logs", FLAGS.reward_formulation, exp_name)
    os.makedirs(exp_log_dir, exist_ok=True)
-   exp_config_dir = os.path.join(exp_log_dir, str(FLAGS.config_idx))
+   if FLAGS.is_all:
+      exp_config_dir = os.path.join(exp_log_dir, "all")
+   else:
+      exp_config_dir = os.path.join(exp_log_dir, str(FLAGS.config_idx))
    
    # get the current working directory and append the exp name
    traject_dir = os.path.join(FLAGS.summary_dir, FLAGS.traject_dir, FLAGS.reward_formulation, exp_name)
